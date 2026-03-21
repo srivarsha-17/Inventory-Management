@@ -3,6 +3,10 @@ const router = express.Router();
 
 const ensureAuthenticated = require("../Middleware/Auth");
 const roleCheck = require("../Middleware/roleCheck");
+const {
+  addExpenseValidation,
+  updateExpenseValidation
+} = require("../Middleware/ExpenseValidation");
 
 const {
   addExpense,
@@ -17,7 +21,8 @@ const {
 router.post(
   "/add",
   ensureAuthenticated,
-  roleCheck("admin", "manager"),
+  roleCheck("admin", "inventoryManager"),
+  addExpenseValidation,
   addExpense
 );
 
@@ -26,7 +31,7 @@ router.post(
 router.get(
   "/all",
   ensureAuthenticated,
-  roleCheck("admin", "manager"),
+  roleCheck("admin", "inventoryManager"),
   getAllExpenses
 );
 
@@ -35,7 +40,7 @@ router.get(
 router.get(
   "/:id",
   ensureAuthenticated,
-  roleCheck("admin","manager"),
+  roleCheck("admin","inventoryManager"),
   getSingleExpense
 );
 
@@ -44,7 +49,8 @@ router.get(
 router.put(
   "/update/:id",
   ensureAuthenticated,
-  roleCheck("admin", "manager"),
+  roleCheck("admin", "inventoryManager"),
+  updateExpenseValidation,
   updateExpense
 );
 
@@ -53,7 +59,7 @@ router.put(
 router.delete(
   "/delete/:id",
   ensureAuthenticated,
-  roleCheck("admin","manager"),
+  roleCheck("admin","inventoryManager"),
   deleteExpense
 );
 
