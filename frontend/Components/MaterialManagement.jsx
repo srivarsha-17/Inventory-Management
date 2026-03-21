@@ -1,10 +1,27 @@
 import React, { useState } from "react";
+import axios from "axios";
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import "./MaterialManagement.css";
 
 function MaterialManagement() {
+  const navigate = useNavigate();
   const [activeSection, setActiveSection] = useState("manage");
   const [materials, setMaterials] = useState([]);
   const [editIndex, setEditIndex] = useState(-1);
+
+  useEffect(() => {
+    fetchMaterials();
+  }, []);
+
+  const fetchMaterials = async () => {
+    try {
+      const res = await axios.get("http://localhost:8080/api/materials");
+      setMaterials(res.data);
+    } catch (error) {
+      console.error("Error fetching materials:", error);
+    }
+  };
 
   const [formData, setFormData] = useState({
     materialType: "",
@@ -21,27 +38,34 @@ function MaterialManagement() {
     setFormData({ ...formData, [name]: value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (editIndex === -1) {
-      setMaterials([...materials, formData]);
-    } else {
-      const updated = [...materials];
-      updated[editIndex] = formData;
-      setMaterials(updated);
-      setEditIndex(-1);
-    }
+    try {
+      if (editIndex === -1) {
+        await axios.post("http://localhost:8080/api/materials", formData);
+      } else {
+        await axios.put(
+          `http://localhost:8080/api/materials/${materials[editIndex]._id}`,
+          formData
+        );
+        setEditIndex(-1);
+      }
 
-    setFormData({
-      materialType: "",
-      quantity: "",
-      unit: "",
-      trucks: "",
-      supplier: "",
-      date: "",
-      remarks: "",
-    });
+      fetchMaterials();
+
+      setFormData({
+        materialType: "",
+        quantity: "",
+        unit: "",
+        trucks: "",
+        supplier: "",
+        date: "",
+        remarks: "",
+      });
+    } catch (error) {
+      console.error("Error saving material:", error);
+    }
   };
 
   const handleEdit = (index) => {
@@ -50,8 +74,13 @@ function MaterialManagement() {
     setActiveSection("manage");
   };
 
-  const handleDelete = (index) => {
-    setMaterials(materials.filter((_, i) => i !== index));
+  const handleDelete = async (id) => {
+    try {
+      await axios.delete(`http://localhost:8080/api/materials/${id}`);
+      fetchMaterials();
+    } catch (error) {
+      console.error("Error deleting material:", error);
+    }
   };
 
   // Calculate totals
@@ -64,6 +93,11 @@ function MaterialManagement() {
 
   return (
     <div className="material-page">
+
+      <button className="back-btn" onClick={() => navigate("/")}>
+        ← Back 
+      </button>
+
       <h2 className="page-title">Material Management Module</h2>
 
       {/* Section Cards */}
@@ -194,7 +228,7 @@ function MaterialManagement() {
                       </button>
                       <button
                         className="delete-btn"
-                        onClick={() => handleDelete(index)}
+                        onClick={() => handleDelete(item._id)}
                       >
                         Delete
                       </button>

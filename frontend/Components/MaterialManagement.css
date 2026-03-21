@@ -130,3 +130,18 @@
   border: 2px solid grey;
   text-align: center;
 }
+
+.back-btn{
+  background-color:#1f4fd8;
+  color:white;
+  border:none;
+  padding:8px 16px;
+  border-radius:6px;
+  margin-bottom:15px;
+  cursor:pointer;
+  font-size:14px;
+}
+
+.back-btn:hover{
+  background-color:#183fb0;
+}
