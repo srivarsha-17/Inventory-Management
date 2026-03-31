@@ -27,3 +27,8 @@ solution enhances transparency, improves decision-making, and ensures cost contr
 proper record maintenance. Overall, this project provides a simple yet effective approach to 
 digitalizing construction site management, helping organizations achieve higher productivity, 
 accountability, and streamlined workflow.
+
+
+
+
+deployed website link; construction-inventory-management.netlify.app
