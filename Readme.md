@@ -1,3 +1,5 @@
+Deployed website link: https://app.netlify.com/projects/construction-inventory-management/overview
+                                 
                                  INVENTORY MANAGEMENT 
 The construction industry plays a vital role in national development, but it still 
 faces major challenges due to the lack of proper management and automation. Traditionally, 
