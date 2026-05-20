@@ -1,6 +1,6 @@
 Deployed website link: https://app.netlify.com/projects/construction-inventory-management/overview
                                  
-                                 INVENTORY MANAGEMENT 
+                                       INVENTORY MANAGEMENT 
 The construction industry plays a vital role in national development, but it still 
 faces major challenges due to the lack of proper management and automation. Traditionally, 
 construction sites depend on manual records and spreadsheets to track materials, attendance, 
@@ -30,7 +30,3 @@ proper record maintenance. Overall, this project provides a simple yet effective
 digitalizing construction site management, helping organizations achieve higher productivity, 
 accountability, and streamlined workflow.
 
-
-
-
-deployed website link; construction-inventory-management.netlify.app
